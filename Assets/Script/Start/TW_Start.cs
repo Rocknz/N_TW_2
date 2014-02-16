@@ -17,9 +17,10 @@ public class TW_Start : MonoBehaviour {
 			RaycastHit hit = new RaycastHit();
 			if(Physics.Raycast(ray, out hit)) {
 				if(NewGame.transform == hit.transform){
+					GameObject.Find ("Logic_Message").GetComponent<Message>().Set_YN_Message(30.0f,50.0f);
 					UserData.Instance.IsTutorial = 0;
 					UserData.Instance.NewStat();
-					Application.LoadLevel(2);
+//					Application.LoadLevel(2);
 				}
 				else if(Continue.transform == hit.transform){
 					UserData.Instance.LoadGameData();

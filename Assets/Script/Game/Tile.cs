@@ -116,6 +116,10 @@ public class Tile : MonoBehaviour {
 			sprite.SetSprite(datas,"Potion");
 			SettingNotEnemy();
 			break;
+		case MainLogic.TILETYPE.X:
+			sprite.SetSprite(datas,"X");
+			SettingNotEnemy();
+			break;
 		}
 	}
 	public void SetScale(float x){

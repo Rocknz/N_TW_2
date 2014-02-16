@@ -224,6 +224,7 @@ public class UserData : MonoBehaviour {
 			}
 		}
 	}
+	// 0 : sword, 3 : helmet, 7 : head, 8 : body
 	public void NewStat(){
 		//Calculate Stats about item;
 
@@ -234,12 +235,16 @@ public class UserData : MonoBehaviour {
 		upgrade[3] = 1;
 
 		ins.UpgradeLevel = upgrade;
+		ins.Atk = 1 + int.Parse (ItemData.Instance.Items[0][ins.SwordLevel]["hack_damage"].ToString()) +
+				int.Parse (ItemData.Instance.Items[7][ins.HeadLevel]["hack_damage"].ToString());
+		ins.Def = 1 + int.Parse (ItemData.Instance.Items[3][ins.HelmetLevel]["def"].ToString()) +
+			int.Parse (ItemData.Instance.Items[8][ins.BodyLevel]["def"].ToString());
+		ins.Int = 1 + int.Parse (ItemData.Instance.Items[0][ins.SwordLevel]["int_damage"].ToString()) +
+			int.Parse (ItemData.Instance.Items[7][ins.HeadLevel]["int_damage"].ToString());
+		ins.HpMax = 100 + int.Parse (ItemData.Instance.Items[3][ins.HelmetLevel]["HP"].ToString()) +
+			int.Parse (ItemData.Instance.Items[8][ins.BodyLevel]["HP"].ToString());
 
-		ins.Atk = 1;
-		ins.Def = 1;
-		ins.Int = 1;
-		ins.HpMax = 100;
-		ins.Hp = 100;
+		ins.Hp = ins.HpMax;
 		ins.MpMax = 20;
 		ins.Mp = 0;
 		ins.Turn = 0;
@@ -283,6 +288,11 @@ public class UserData : MonoBehaviour {
 			ins.HeadExists[i] = i==0?true:false;
 			ins.SwordExists[i] = i==0?true:false;
 			ins.BodyExists[i] = i==0?true:false;
+
+			ins.HelmetExists[i] = true;
+			ins.HeadExists[i] = true;
+			ins.SwordExists[i] = true;
+			ins.BodyExists[i] = true;
 		}
 
 		DontDestroyOnLoad(this);	

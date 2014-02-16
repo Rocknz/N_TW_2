@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{63064C57-D125-A035-CDDD-7AC0AA798312}</ProjectGuid>
+	<ProjectGuid>{713C6348-79AB-3119-FA47-3011BEE75990}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -170,12 +170,15 @@
      <Compile Include="Assets\Script\Game\MainLogic.cs" />
      <Compile Include="Assets\Script\Game\Tile.cs" />
      <Compile Include="Assets\Script\Game\TileStatus.cs" />
+     <Compile Include="Assets\Script\Game\Tutorial.cs" />
      <Compile Include="Assets\Script\Game\UserText.cs" />
      <Compile Include="Assets\Script\Login.cs" />
      <Compile Include="Assets\Script\Start\TW_Start.cs" />
      <Compile Include="Assets\Script\Status\Status.cs" />
      <Compile Include="Assets\Script\Upgrade\Upgrade.cs" />
      <Compile Include="Assets\Script\Upgrade\UpgradeText.cs" />
+     <Compile Include="Assets\Script\User\Message.cs" />
+     <Compile Include="Assets\Script\User\Player.cs" />
      <Compile Include="Assets\Script\User\UserData.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCameraAnchor.cs" />

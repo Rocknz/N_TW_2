@@ -15,6 +15,7 @@ public class Status : MonoBehaviour {
 	GameObject[,] ViewItem = new GameObject[4,11];
 	GameObject[] ViewPresentItem = new GameObject[4];
 	GameObject[] ViewNextItem = new GameObject[5];
+
 	GameObject ViewMessage;
 
 	/*
@@ -52,6 +53,7 @@ public class Status : MonoBehaviour {
 	GameObject ViewHeadTable;
 	GameObject ViewSwordTable;
 	GameObject ViewBodyTable;
+
 	GameObject[] ViewHelmet = new GameObject[4];
 	GameObject[] ViewHead = new GameObject[4];
 	GameObject[] ViewSword = new GameObject[4];
@@ -105,6 +107,14 @@ public class Status : MonoBehaviour {
 			ViewBody[i] = GameObject.Find ("Body_"+(i+1).ToString ());
 		}
 		SetItemColor();
+
+		//GameObject now = GameObject.Find ("Player");
+		GameObject.Find ("Player").GetComponent<Player> ();
+
+/*
+		initViewItemLevel ();
+		SetViewItemLevel ();
+		*/
 		//showWindows ("Start Call!");
 		DrawItemTable ();
 	}
@@ -114,6 +124,9 @@ public class Status : MonoBehaviour {
 	public static int LastSelectLevel;
 	void Update () {
 		SetItemColor ();
+		/*
+		SetViewItemLevel ();
+		*/
 		money = UserData.Instance.Coin;
 		if ( Input.GetButtonDown ("Fire1") ) {
 			//Vector2 V2 = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
@@ -215,12 +228,18 @@ public class Status : MonoBehaviour {
 		for ( int i = 0 ; i < 4 ; i++ ) 
 			for ( int j = 1 ; j < 4 ; j++ ) {
 			//if ( JsonItemType[i,j].ToString () == "HP" ) continue;
-				TextMesh textMesh = ViewItem[i,j].GetComponent<TextMesh>();
+			/*
+			Atk.GetComponent<tk2dTextMesh>().text = UserData.Instance.Atk.ToString();
+			Atk.GetComponent<tk2dTextMesh>().Commit();
+*/
+			tk2dTextMesh textMesh = ViewItem[i,j].GetComponent<tk2dTextMesh>();
+				//TextMesh textMesh = ViewItem[i,j].GetComponent<TextMesh>();
 				if ( j == 1 ) {
 					textMesh.text = Items[hash[i]][lv[i]][JsonItemType[i,j]].ToString();
-					textMesh.fontSize = 10;
+			//		textMesh.fontSize = 10;
 				}
 				else textMesh.text = ShowItemType[i,j]+" : "+Items[hash[i]][lv[i]][JsonItemType[i,j]].ToString ();
+			textMesh.Commit();
 			}
 	}
 	bool DrawNextItem(int ItemType,int select_lv) {
@@ -240,22 +259,26 @@ public class Status : MonoBehaviour {
 
 		ViewTable [4].transform.position = new Vector3 (0, 1, -1.4f);
 		for ( int j = 1 ; j < 4 ; j++ ) { 
-			TextMesh textMesh = ViewPresentItem[j].GetComponent<TextMesh>();
+			//TextMesh textMesh = ViewPresentItem[j].GetComponent<TextMesh>();
+			tk2dTextMesh textMesh = ViewPresentItem[j].GetComponent<tk2dTextMesh>();
 			if ( j == 1 ) {
 				textMesh.text = Items[hash[ItemType]][lv[ItemType]][JsonItemType[ItemType,j]].ToString ();
-				textMesh.fontSize = 10;
+			//	textMesh.fontSize = 10;
 			}
 			else textMesh.text = ShowItemType[ItemType,j]+" : "+Items[hash[ItemType]][lv[ItemType]][JsonItemType[ItemType,j]].ToString ();
+			textMesh.Commit();
 		}
 		//int nextLv = lv[ItemType]+1;
 		int nextLv = select_lv;
 		for ( int j = 1 ; j < 4 ; j++ ) {
-			TextMesh textMesh = ViewNextItem[j].GetComponent<TextMesh>();
+			//TextMesh textMesh = ViewNextItem[j].GetComponent<TextMesh>();
+			tk2dTextMesh textMesh = ViewNextItem[j].GetComponent<tk2dTextMesh>();
 			if ( j == 1 ) { 
 				textMesh.text = Items[hash[ItemType]][nextLv][JsonItemType[ItemType,j]].ToString();
-				textMesh.fontSize = 10;
+		//		textMesh.fontSize = 10;
 			}
 			else textMesh.text = ShowItemType[ItemType,j]+" : "+Items[hash[ItemType]][nextLv][JsonItemType[ItemType,j]].ToString ();
+			textMesh.Commit();
 		}
 		//TextMesh price = ViewNextItem[4].GetComponent<TextMesh>();
 		//price.text = "Price\t:\t" + Items [hash [ItemType]] [nextLv] ["price"].ToString ();
@@ -294,8 +317,11 @@ public class Status : MonoBehaviour {
 	}
 	void showWindows(string s) {
 		ViewTable [5].transform.position = new Vector3 (0, 1, -1.5f);
-		TextMesh message = ViewMessage.GetComponent<TextMesh> ();
+
+		//TextMesh message = ViewMessage.GetComponent<TextMesh> ();
+		tk2dTextMesh message = ViewMessage.GetComponent<tk2dTextMesh> ();
 		message.text = s;
+		message.Commit ();
 	}
 	void closeWindows() {
 		ViewTable [5].transform.position = new Vector3 (0, 1, 10);
@@ -322,4 +348,5 @@ public class Status : MonoBehaviour {
 			else ViewBody[i].gameObject.GetComponent<tk2dSprite>().color = new Color(0,0,0);
 		}
 	}
+
 }

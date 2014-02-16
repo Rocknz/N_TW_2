@@ -2,13 +2,13 @@
 using System.Collections;
 
 public class MainLogic : MonoBehaviour {
-	public enum TILETYPE{ Enemy, Sword, Storm, Potion, Coin};
+	public enum TILETYPE{ Enemy, Sword, Storm, Potion, Coin, X};
 	public static int TILE_SIZE = 7; 
 	GameObject player,monsterAttackSound;
 	Queue BfsQ;
 	Vector2[] PathQ;
 	int PQc;
-	bool NowBreaking;
+	public bool NowBreaking;
 	int FallingCount;
 	int Damage_now = 1;
 
@@ -196,14 +196,12 @@ public class MainLogic : MonoBehaviour {
 
 		if(cnt != 0){
 			NowBreaking = true;
-
 			//MonsterAttackTurn.
 			for(i=0;i<TILE_SIZE;i++){
 				for(j=0;j<TILE_SIZE;j++){
 					main_Tile[i,j].myStatus.myTurn ++;
 				}
 			}
-
 			for(i=0;i<TILE_SIZE;i++){
 				for(j=0;j<TILE_SIZE;j++){
 					if(main_Tile[i,j].myStatus.myHp <= 0){
@@ -371,6 +369,9 @@ public class MainLogic : MonoBehaviour {
 		FallingCount --;
 		if(FallingCount == 0){
 			UserData.Instance.Turn ++;
+			if(UserData.Instance.IsTutorial != -1){
+				UserData.Instance.IsTutorial ++;
+			}
 			if(UserData.Instance.Hp <= 0){
 				GameObject.Find("Ending").GetComponent<Ending>().NowEnding(main_Tile,UserData.Instance.Turn,UserData.Instance.DeadEnemyCount);
 				UserData.Instance.haveGameData = 0;
