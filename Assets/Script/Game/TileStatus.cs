@@ -16,8 +16,8 @@ public class TileStatus : MonoBehaviour {
 		myAttack = 1;
 		NewType ();
 		if(myType == MainLogic.TILETYPE.Enemy){
-			myHp = (int)(Random.value * Turn/6.0f) + 1;
-			myAttack = (int)(Random.value * Turn/6.0f) + 2;
+			myHp = (int)(Random.value * Turn/2.0f) + 5+(int)(Turn/3.0f);
+			myAttack = (int)(Random.value * Turn/2.0f) + 5+(int)(Turn/5.0f);
 		}
 	}
 	public void NewType(){

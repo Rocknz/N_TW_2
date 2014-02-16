@@ -5,7 +5,7 @@
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
 -r:'Assets/Plugins/LitJson.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
--define:UNITY_ANDROID
+-define:UNITY_IPHONE
 -define:ENABLE_MICROPHONE
 -define:ENABLE_TEXTUREID_MAP
 -define:ENABLE_AUDIO_FMOD
@@ -17,15 +17,16 @@
 -define:INCLUDE_WP8SUPPORT
 -define:ENABLE_WWW
 -define:ENABLE_IMAGEEFFECTS
+-define:UNITY_IPHONE_API
 -define:ENABLE_WEBCAM
 -define:INCLUDE_METROSUPPORT
--define:RENDER_SOFTWARE_CURSOR
 -define:ENABLE_NETWORK
 -define:ENABLE_PHYSICS
 -define:ENABLE_CACHING
 -define:ENABLE_CLOTH
--define:UNITY_ANDROID_API
 -define:ENABLE_2D_PHYSICS
+-define:ENABLE_GAMECENTER
+-define:UNITY_IOS
 -define:ENABLE_SHADOWS
 -define:ENABLE_AUDIO
 -define:ENABLE_NAVMESH_CARVING
