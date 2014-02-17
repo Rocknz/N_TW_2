@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 	void Update () {
 		SetViewItemLevel ();
 	}
+
 	public void initViewItemLevel() {
 		for ( int i = 0 ; i < 4 ; i++ ) {
 			ViewItemLevel[0,i] = GameObject.Find ("Helmet"+(i+1).ToString());
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour {
 			ViewItemLevel[3,i] = GameObject.Find ("Body"+(i+1).ToString ());
 		}
 	}
+
 	public void SetViewItemLevel() {
 		for ( int i = 0 ; i < 4 ; i++ ) 
 		for ( int j = 0 ; j < UserData.ITEM_SIZE ; j++ ) {
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour {
 			                                                    ViewItemLevel[i,j].transform.localPosition.y,
 			                                                    1000.0f);
 		}
+
 		if ( UserData.Instance.HelmetLevel != -1 ) 
 			ViewItemLevel [0, UserData.Instance.HelmetLevel].transform.localPosition = new Vector3 (
 				ViewItemLevel [0, UserData.Instance.HelmetLevel].transform.localPosition.x,
@@ -51,6 +54,5 @@ public class Player : MonoBehaviour {
 				ViewItemLevel[3,UserData.Instance.BodyLevel].transform.localPosition.x,
 				ViewItemLevel[3,UserData.Instance.BodyLevel].transform.localPosition.y,
 				-0f);
-		
 	}
 }

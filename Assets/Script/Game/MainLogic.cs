@@ -117,7 +117,8 @@ public class MainLogic : MonoBehaviour {
 				int what = 0;
 				if(Physics.Raycast(ray, out hit)) {
 					foreach(Tile tiles in main_Tile){
-						if(tiles.myTile.transform == hit.transform){
+						if(tiles.myTile.transform == hit.transform && 
+						   tiles.myStatus.myType != TILETYPE.X){
 							before = tiles.myTile;
 							PathQ = new Vector2[50];
 							PQc = 0;
@@ -289,9 +290,24 @@ public class MainLogic : MonoBehaviour {
 		}
 	}
 	public void StormEffect(){
+		TILETYPE type;
 		for(int i=0;i<TILE_SIZE;i++){
 			for(int j=0;j<TILE_SIZE;j++){
 				main_Tile[i,j].myStatus.myHp = 0;
+
+				type = main_Tile[i,j].myStatus.myType;
+				if(type == TILETYPE.Coin){
+					UserData.Instance.Coin ++;
+				}
+				else if(type == TILETYPE.Potion){
+					UserData.Instance.Hp ++;
+				}
+				else if(type == TILETYPE.Storm){
+					UserData.Instance.Mp ++;
+				}
+				else if(type == TILETYPE.Enemy){
+					UserData.Instance.DeadEnemyCount ++;
+				}
 			}
 		}
 		DestroyTile ();

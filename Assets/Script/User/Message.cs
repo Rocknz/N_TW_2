@@ -45,6 +45,22 @@ public class Message : MonoBehaviour {
 		mMessage.GetComponent<tk2dTextMesh>().text = msg;
 		mMessage.GetComponent<tk2dTextMesh>().Commit();
 	}
+	public void Story(float x,float y,string msg){
+		M_Type = -1;
+		this.transform.localPosition = new Vector3 (0,0,3);
+		mMessage.transform.localPosition = new Vector3 (0,0,-1.0f);
+		
+		mYes.transform.localPosition = new Vector3 (-0.2f,0,-1.0f);
+		mNo.transform.localPosition = new Vector3 (0.2f,0,-1.0f);
+		
+		this.transform.localScale = new Vector3(x,y,0.1f);
+		mYes.transform.localScale = new Vector3(0,0,0);
+		mNo.transform.localScale = new Vector3(0,0,0);
+		mMessage.transform.localScale = new Vector3(0.6f,0.5f,0.1f);
+		
+		mMessage.GetComponent<tk2dTextMesh>().text = msg;
+		mMessage.GetComponent<tk2dTextMesh>().Commit();
+	}
 	void Update () {
 		if(Input.GetButtonUp("Fire1")){
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -54,16 +70,28 @@ public class Message : MonoBehaviour {
 				if(hit.transform == mYes.transform && M_Type == 1){
 					UserData.Instance.IsTutorial = 0;
 					this.transform.localPosition = new Vector3 (0,0,-50);
+					UserData.Instance.NewGame();
 					Application.LoadLevel(2);
 				}
 				else if(hit.transform == mNo.transform && M_Type == 1){
 					UserData.Instance.IsTutorial = -1;
 					this.transform.localPosition = new Vector3 (0,0,-50);
+					UserData.Instance.NewGame();
 					Application.LoadLevel(2);
 				}
-				else if(hit.transform == mMbox.transform && M_Type == 2){
-					this.transform.localPosition = new Vector3 (0,0,-50);
-					GameObject.Find ("Main Camera").GetComponent<MainLogic>().NowBreaking = false;
+				else if(hit.transform == mMbox.transform){
+					if(M_Type == -1){
+						//Story;
+						this.transform.localPosition = new Vector3 (0,0,-50);
+						UserData.Instance.IsTutorial ++;
+						GameObject.Find ("Main Camera").GetComponent<MainLogic>().NowBreaking = false;
+						GameObject.Find ("AllTiles").GetComponent<UIPanel>().alpha = 1.0f;
+					}
+					else if(M_Type == 2){
+						this.transform.localPosition = new Vector3 (0,0,-50);
+						GameObject.Find ("Main Camera").GetComponent<MainLogic>().NowBreaking = false;
+						GameObject.Find ("AllTiles").GetComponent<UIPanel>().alpha = 1.0f;
+					}
 				}
 			}
 		}

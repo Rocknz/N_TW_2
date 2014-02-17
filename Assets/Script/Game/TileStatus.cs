@@ -8,6 +8,7 @@ public class TileStatus : MonoBehaviour {
 	public int myTurn;
 	public int onClick;
 	public TileStatus(int y,int x,int Turn){
+
 		// ㅅㅐㄹㅗ ㅅㅓㄴ ㅇㅓㄴ 
 		myY = y;
 		myX = x;
@@ -22,6 +23,7 @@ public class TileStatus : MonoBehaviour {
 	}
 	public void NewType(){
 		int t;
+
 		do{
 			t = (int)(Random.value * 5.0f);
 		}while(t == 5);

@@ -257,7 +257,14 @@ public class UserData : MonoBehaviour {
 //		ins.HpMax = PlayerPrefs.GetInt ("HpMax");
 //		ins.XienMax = PlayerPrefs.GetInt ("XienMax");
 	}
-
+	public void NewGame(){
+		int i,j;
+		for(i=0;i<MainLogic.TILE_SIZE;i++){
+			for(j=0;j<MainLogic.TILE_SIZE;j++){
+				ins.TS[i,j] = new TileStatus(i,j,0);
+			}
+		}
+	}
 	void Start () {
 		// DataLoad
 		ins = new UserData();
@@ -277,12 +284,8 @@ public class UserData : MonoBehaviour {
 		PlayerPrefs.SetInt ("SwordLevel", 0);
 		PlayerPrefs.SetInt ("BodyLevel", 0);
 
-		int i,j;
-		for(i=0;i<MainLogic.TILE_SIZE;i++){
-			for(j=0;j<MainLogic.TILE_SIZE;j++){
-				ins.TS[i,j] = new TileStatus(i,j,0);
-			}
-		}
+		int i;
+		NewGame ();
 		for ( i = 0 ; i < ITEM_SIZE ; i++ ) {
 			ins.HelmetExists[i] = i==0?true:false;
 			ins.HeadExists[i] = i==0?true:false;
