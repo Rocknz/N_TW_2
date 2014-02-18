@@ -22,7 +22,7 @@ public class UserText : MonoBehaviour {
 		setStat();
 	}
 	public void BeAttacked(int Damage){
-		HpDamage.transform.localPosition = new Vector3(HpDamage.transform.localPosition.x,0,90);
+		HpDamage.transform.localPosition = new Vector3(HpDamage.transform.localPosition.x,0,80);
 		HpDamage.GetComponent<tk2dTextMesh>().text = "-" + Damage.ToString();
 		HpDamage.GetComponent<tk2dTextMesh>().color = new Color(130,130,130);
 		HpDamage.GetComponent<tk2dTextMesh>().Commit ();
