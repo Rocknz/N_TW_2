@@ -1,12 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Game/Ending.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Game/Tutorial.cs">
     <Files>
-      <File FileName="Assets/Script/Status/Status.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/User/Player.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Game/TileStatus.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Data/ItemData.cs" Line="6" Column="51" />
-      <File FileName="Assets/Script/Game/Ending.cs" Line="66" Column="34" />
+      <File FileName="Assets/Script/Game/Tutorial.cs" Line="190" Column="132" />
+      <File FileName="Assets/Script/Game/MainLogic.cs" Line="304" Column="20" />
+      <File FileName="Assets/Script/User/Message.cs" Line="104" Column="73" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -33,14 +33,30 @@ public class Message : MonoBehaviour {
 		M_Type = 2;
 		this.transform.localPosition = new Vector3 (0,0,3);
 		mMessage.transform.localPosition = new Vector3 (0,0,-1.0f);
-
+		
 		mYes.transform.localPosition = new Vector3 (-0.2f,0,-1.0f);
 		mNo.transform.localPosition = new Vector3 (0.2f,0,-1.0f);
 		
 		this.transform.localScale = new Vector3(x,y,0.1f);
 		mYes.transform.localScale = new Vector3(0,0,0);
 		mNo.transform.localScale = new Vector3(0,0,0);
-		mMessage.transform.localScale = new Vector3(1f,0.5f,0.1f);
+		mMessage.transform.localScale = new Vector3(0.5f,0.5f,0.1f);
+		
+		mMessage.GetComponent<tk2dTextMesh>().text = msg;
+		mMessage.GetComponent<tk2dTextMesh>().Commit();
+	}
+	public void Tuto_Message_2(float x,float y,string msg){
+		M_Type = -1;
+		this.transform.localPosition = new Vector3 (0,0,3);
+		mMessage.transform.localPosition = new Vector3 (0,0,-1.0f);
+		
+		mYes.transform.localPosition = new Vector3 (-0.2f,0,-1.0f);
+		mNo.transform.localPosition = new Vector3 (0.2f,0,-1.0f);
+		
+		this.transform.localScale = new Vector3(x,y,0.1f);
+		mYes.transform.localScale = new Vector3(0,0,0);
+		mNo.transform.localScale = new Vector3(0,0,0);
+		mMessage.transform.localScale = new Vector3(0.5f,0.5f,0.1f);
 		
 		mMessage.GetComponent<tk2dTextMesh>().text = msg;
 		mMessage.GetComponent<tk2dTextMesh>().Commit();

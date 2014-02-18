@@ -96,17 +96,17 @@ public class MainLogic : MonoBehaviour {
 							main_Tile[ny,nx].BeAttacked (Damage_now);
 						}
 					}
-					DestroyTile();
 					if(count >= 3){
+						DestroyTile();
 						GameObject.Find ("ComboBox").GetComponent<ComboLogic>().AddCombo(type);
 						if(type == TILETYPE.Coin){
 							UserData.Instance.Coin += count;
 						}
 						else if(type == TILETYPE.Potion){
-							UserData.Instance.Hp += count;
+							UserData.Instance.UpHp(count);
 						}
 						else if(type == TILETYPE.Storm){
-							UserData.Instance.Mp += count;
+							UserData.Instance.UpMp(count);
 						}
 						GameObject.Find ("UserText").GetComponent<UserText>().setStat();
 					}
@@ -153,12 +153,12 @@ public class MainLogic : MonoBehaviour {
 						upcount = count;
 					}
 					else if(type == TILETYPE.Potion){
-						DMG_Text.text = "CNT";
-						upcount = count;
+						DMG_Text.text = "HP";
+						upcount = UserData.Instance.UpHpGap(count);
 					}
 					else if(type == TILETYPE.Storm){
-						DMG_Text.text = "CNT" ;
-						upcount = count * UserData.Instance.Int;
+						DMG_Text.text = "STM" ;
+						upcount = UserData.Instance.UpMpGap (count);
 					}
 					else{
 						upcount = 1;
@@ -245,6 +245,9 @@ public class MainLogic : MonoBehaviour {
 				}
 			}
 		}
+		else{
+			FallingTile ();
+		}
 	}
 	private void FallingTile(){
 		int i,j,y;
@@ -272,9 +275,11 @@ public class MainLogic : MonoBehaviour {
 			}
 		}
 		FallingCount = 0;
+		int check = 0;
 		for(i=0;i<TILE_SIZE;i++){
 			for(j=0;j<TILE_SIZE;j++){
 				if(main_Tile[i,j].myStatus.myY != i){
+					check = 1;
 					main_Tile[i,j].myStatus.myY = i;
 					FallingCount ++;
 					Vector3 v3 = Tile.Position(i,j,0);
@@ -289,10 +294,16 @@ public class MainLogic : MonoBehaviour {
 				}
 			}
 		}
+		if(check == 0){
+			FallingCount = 1;
+			FallingEnd(null);
+		}
 	}
 	public void FallingEnd(Tile tile){
 		FallingCount --;
-		tile.SetTileByStatus();
+		if(tile != null){
+			tile.SetTileByStatus();
+		}
 		if(FallingCount == 0){
 			// Effect
 			if(UserData.Instance.Mp == UserData.Instance.MpMax){
@@ -307,6 +318,8 @@ public class MainLogic : MonoBehaviour {
 	}
 	public void StormEffect(){
 		TILETYPE type;
+		int cnt_p = 0;
+		int cnt_s = 0;
 		for(int i=0;i<TILE_SIZE;i++){
 			for(int j=0;j<TILE_SIZE;j++){
 				main_Tile[i,j].myStatus.myHp = 0;
@@ -316,16 +329,18 @@ public class MainLogic : MonoBehaviour {
 					UserData.Instance.Coin ++;
 				}
 				else if(type == TILETYPE.Potion){
-					UserData.Instance.Hp ++;
+					cnt_p ++;
 				}
 				else if(type == TILETYPE.Storm){
-					UserData.Instance.Mp ++;
+					cnt_s ++;
 				}
 				else if(type == TILETYPE.Enemy){
 					UserData.Instance.DeadEnemyCount ++;
 				}
 			}
 		}
+		UserData.Instance.UpHp (cnt_p);
+		UserData.Instance.UpMp (cnt_s);
 		DestroyTile ();
 	}
 	public void MonsterAttack(){

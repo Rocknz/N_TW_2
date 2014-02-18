@@ -3,7 +3,7 @@ using System.Collections;
 
 public class UpgradeText : MonoBehaviour {
 	public static int UC = 3;
-	public static int UMax = 21;
+	public static int UMax = 51;
 	// UPGRADE [i,j,k], i = Kind, j = Level, z = (0 = atk,1 = def,2 = int,3 = hpmax,4 = xienmax; 
 	public int[,,] UPGRADE = new int[UC,UMax,5];
 	public int[,] UPGRADECOST = new int[UC,UMax];
@@ -17,21 +17,23 @@ public class UpgradeText : MonoBehaviour {
 				UPGRADECOST[i,j] = 0;
 			}
 		}
+		int add = 0;
 		for(j=1;j<UMax;j++){
-			UPGRADE[0,j,0] = j * 1;
-			UPGRADE[0,j,2] = j * 1;
+			UPGRADE[0,j,0] = j*1 + add;
+			UPGRADE[0,j,2] = j*1 - add;
 
-			UPGRADE[1,j,1] = j * 1;
-			UPGRADE[1,j,3] = j * 1;
+			UPGRADE[1,j,1] = j*1 - add;
+			UPGRADE[1,j,3] = j*3 - add;
 
-			UPGRADE[2,j,2] = j * 1;
-			UPGRADE[2,j,3] = j * 1;
-			UPGRADE[2,j,4] = j * 1;
+			UPGRADE[2,j,2] = j*2 - add;
+			UPGRADE[2,j,3] = j*2;
 
-
-			UPGRADECOST[0,j] = j * 10;
-			UPGRADECOST[1,j] = j * 10;
-			UPGRADECOST[2,j] = j * 10;
+			UPGRADECOST[0,j] = j*5 + add;
+			UPGRADECOST[1,j] = j*5 + add;
+			UPGRADECOST[2,j] = j*5 + add;
+			if(j%2 == 0){
+				add ++;
+			}
 		}
 	}
 

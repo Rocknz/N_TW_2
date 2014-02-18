@@ -136,6 +136,30 @@ public class UserData : MonoBehaviour {
 		get { return mBodyExists; }
 		set { mBodyExists = value;}
 	}
+	public int UpHpGap(int hp){
+		return (int)((float)hp * (float)ins.mHpMax / 100.0f * 3.0f);
+	}
+	public void UpHp(int hp){
+		ins.mHp += UpHpGap (hp);
+		if(ins.mHp > ins.mHpMax){
+			ins.mHp = ins.mHpMax;
+		}
+	}
+	public int UpMpGap(int mp){
+//		int addgap;
+//		if(UserData.Instance.Int >= 60) addgap = 4;
+//		else if(UserData.Instance.Int >= 40) addgap = 3;
+//		else if(UserData.Instance.Int >= 20) addgap = 2;
+//		else addgap = 1;
+
+		return mp * (10 + (int)(ins.Int/14));
+	}
+	public void UpMp(int mp){
+		ins.mMp += UpMpGap (mp);
+		if(ins.mMp > ins.mMpMax){
+			ins.mMp = ins.mMpMax;
+		}
+	}
 	public void LoadGameData(){
 		ins.haveGameData = PlayerPrefs.GetInt("haveGameData",0);
 		if(ins.haveGameData == 1){
@@ -235,18 +259,19 @@ public class UserData : MonoBehaviour {
 		upgrade[3] = 1;
 
 		ins.UpgradeLevel = upgrade;
-		ins.Atk = 1 + int.Parse (ItemData.Instance.Items[0][ins.SwordLevel]["hack_damage"].ToString()) +
+		ins.Atk = 0 + int.Parse (ItemData.Instance.Items[0][ins.SwordLevel]["hack_damage"].ToString()) +
 				int.Parse (ItemData.Instance.Items[7][ins.HeadLevel]["hack_damage"].ToString());
-		ins.Def = 1 + int.Parse (ItemData.Instance.Items[3][ins.HelmetLevel]["def"].ToString()) +
+		ins.Def = 0 + int.Parse (ItemData.Instance.Items[3][ins.HelmetLevel]["def"].ToString()) +
 			int.Parse (ItemData.Instance.Items[8][ins.BodyLevel]["def"].ToString());
-		ins.Int = 1 + int.Parse (ItemData.Instance.Items[0][ins.SwordLevel]["int_damage"].ToString()) +
+		ins.Int = 0 + int.Parse (ItemData.Instance.Items[0][ins.SwordLevel]["int_damage"].ToString()) +
 			int.Parse (ItemData.Instance.Items[7][ins.HeadLevel]["int_damage"].ToString());
 		ins.HpMax = 100 + int.Parse (ItemData.Instance.Items[3][ins.HelmetLevel]["HP"].ToString()) +
 			int.Parse (ItemData.Instance.Items[8][ins.BodyLevel]["HP"].ToString());
 
 		ins.Hp = ins.HpMax;
-		ins.MpMax = 20;
+		ins.MpMax = 250;
 		ins.Mp = 0;
+		ins.Coin = 0;
 		ins.Turn = 0;
 		ins.DeadEnemyCount = 0;
 		ins.haveGameData = 1;
