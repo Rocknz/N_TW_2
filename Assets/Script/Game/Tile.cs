@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour {
 	public GameObject myHp;
 	public GameObject myAttack;
 	public GameObject AttackEffect;
+	public GameObject DieEffect;
 
 	public TileStatus myStatus;
 	public static tk2dSpriteCollectionData datas = (tk2dSpriteCollectionData)Resources.Load("Tiles Data/Tiles",typeof(tk2dSpriteCollectionData));
@@ -47,6 +48,12 @@ public class Tile : MonoBehaviour {
 		tm.text = "0";
 		tm.Commit ();
 
+		DieEffect = new GameObject("Die_Eft");
+		DieEffect.transform.parent = myTile.transform;
+		DieEffect.transform.localPosition = new Vector3(0,0,-2);
+		DieEffect.transform.localScale = new Vector3(0,0,0);
+		DieEffect.AddComponent<tk2dSprite>().SetSprite (datas,"X");
+
 		SetHp();
 		SetAtk();
 		SetTileByStatus();
@@ -64,6 +71,14 @@ public class Tile : MonoBehaviour {
 		if(myStatus.myHp < 0) myStatus.myHp = 0;
 		SetHp ();
 	}
+	public void SetDieEffect(bool x){
+		if(x){
+			DieEffect.transform.localScale = new Vector3(100,100,0);
+		}
+		else {
+			DieEffect.transform.localScale = new Vector3(0,0,0);
+		}
+	}
 	public void SetTileByStatus(){
 		int z = 2;
 		if(myStatus.myType == MainLogic.TILETYPE.Enemy){
@@ -72,6 +87,8 @@ public class Tile : MonoBehaviour {
 		SetPosition (myStatus.myY,myStatus.myX,z);
 		SetImage (myStatus.myType);
 		SetScale (1.0f);
+		SetHp ();
+		SetAtk ();
 	}
 	private void SettingEnemy(){
 		tk2dSpriteAnimator ani = myTile.GetComponent<tk2dSpriteAnimator>();

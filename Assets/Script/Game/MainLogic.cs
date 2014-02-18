@@ -47,6 +47,11 @@ public class MainLogic : MonoBehaviour {
 				RaycastHit hit = new RaycastHit();
 
 				int what = 0;
+
+				foreach(Tile x in main_Tile){
+					x.SetDieEffect(false);
+				}
+
 				if(Physics.Raycast(ray, out hit)) {
 					foreach(Tile tiles in main_Tile){
 						if(tiles.myTile.transform == hit.transform &&
@@ -83,6 +88,7 @@ public class MainLogic : MonoBehaviour {
 						nx = (int)now.x;
 						ny = (int)now.y;
 						main_Tile[ny,nx].SetScale (1.0f);
+
 						if(count >= 3){
 							if(!(type == TILETYPE.Sword && main_Tile[ny,nx].myStatus.myType == TILETYPE.Enemy)){
 								type = main_Tile[ny,nx].myStatus.myType;
@@ -167,6 +173,16 @@ public class MainLogic : MonoBehaviour {
 						}
 						Damage_now = upcount;
 						DMG_Text.text = "DMG";
+						for(int i=0 ; i<PQc ; i++){
+							Vector2 now = (Vector2)PathQ[i];
+							int nx,ny;
+							nx = (int)now.x;
+							ny = (int)now.y;
+							if(main_Tile[ny,nx].myStatus.myType == TILETYPE.Enemy && 
+							   main_Tile[ny,nx].myStatus.myHp <= Damage_now){
+								main_Tile[ny,nx].SetDieEffect(true);
+							}
+						}
 					}
 					DMG_Gap.text = upcount.ToString();
 

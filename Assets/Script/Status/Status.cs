@@ -136,6 +136,7 @@ public class Status : MonoBehaviour {
 				Debug.Log (hit.collider.name);
 				closeWindows();
 				if ( hit.collider.name == "select" ) {
+					UserData.Instance.SaveNowItem();
 					Application.LoadLevel(1);
 				}
 				if ( hit.collider.name == ViewTable[0].name ) {

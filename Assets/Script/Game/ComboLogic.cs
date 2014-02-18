@@ -72,7 +72,7 @@ public class ComboLogic : MonoBehaviour {
 			case 5:	AddCoin = 30; break;
 			case 6:	AddCoin = 40; break;
 			}
-			MoneyUp.GetComponent<tk2dTextMesh>().text = "Seed + " + AddCoin.ToString();
+			MoneyUp.GetComponent<tk2dTextMesh>().text = "Coin + " + AddCoin.ToString();
 			MoneyUp.GetComponent<tk2dTextMesh>().Commit ();
 			iTween.ScaleTo (MoneyUp, iTween.Hash(
 				"x", 200.0f,

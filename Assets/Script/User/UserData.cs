@@ -265,6 +265,31 @@ public class UserData : MonoBehaviour {
 			}
 		}
 	}
+	public void GetItemExists(){
+		PlayerPrefs.SetInt ("HelmetExists0",1);
+		PlayerPrefs.SetInt ("HeadExists0",1);
+		PlayerPrefs.SetInt ("SwordExists0",1);
+		PlayerPrefs.SetInt ("BodyExists0",1);
+		for (int i = 0 ; i < ITEM_SIZE ; i++ ) {
+			if(PlayerPrefs.GetInt("HelmetExists"+i.ToString(),0) != 0) ins.HelmetExists[i] = true;
+			else ins.HelmetExists[i] = false;
+			
+			if(PlayerPrefs.GetInt("HeadExists"+i.ToString(),0) != 0) ins.HeadExists[i] = true;
+			else ins.HeadExists[i] = false;
+			
+			if(PlayerPrefs.GetInt("SwordExists"+i.ToString(),0) != 0) ins.SwordExists[i] = true;
+			else ins.SwordExists[i] = false;
+			
+			if(PlayerPrefs.GetInt("BodyExists"+i.ToString(),0) != 0) ins.BodyExists[i] = true;
+			else ins.BodyExists[i] = false;
+		}
+	}
+	public void SaveNowItem(){
+		PlayerPrefs.SetInt ("HelmetLevel", ins.HelmetLevel);
+		PlayerPrefs.SetInt ("HeadLevel", ins.HeadLevel);
+		PlayerPrefs.SetInt ("SwordLevel", ins.SwordLevel);
+		PlayerPrefs.SetInt ("BodyLevel", ins.BodyLevel);
+	}
 	void Start () {
 		// DataLoad
 		ins = new UserData();
@@ -274,29 +299,14 @@ public class UserData : MonoBehaviour {
 
 		//PlayerPrefs -> DataLoad and DataSave
 
-		ins.HelmetLevel = PlayerPrefs.GetInt ("HelmetLevel");
-		ins.HeadLevel = PlayerPrefs.GetInt ("HeadLevel");
-		ins.SwordLevel = PlayerPrefs.GetInt ("SwordLevel");
-		ins.BodyLevel = PlayerPrefs.GetInt ("BodyLevel");
+		ins.HelmetLevel = PlayerPrefs.GetInt ("HelmetLevel" ,0);
+		ins.HeadLevel = PlayerPrefs.GetInt ("HeadLevel" ,0);
+		ins.SwordLevel = PlayerPrefs.GetInt ("SwordLevel" ,0);
+		ins.BodyLevel = PlayerPrefs.GetInt ("BodyLevel" ,0);
 
-		PlayerPrefs.SetInt ("HelmetLevel", 0);
-		PlayerPrefs.SetInt ("HeadLevel", 0);
-		PlayerPrefs.SetInt ("SwordLevel", 0);
-		PlayerPrefs.SetInt ("BodyLevel", 0);
-
-		int i;
+		SaveNowItem ();
 		NewGame ();
-		for ( i = 0 ; i < ITEM_SIZE ; i++ ) {
-			ins.HelmetExists[i] = i==0?true:false;
-			ins.HeadExists[i] = i==0?true:false;
-			ins.SwordExists[i] = i==0?true:false;
-			ins.BodyExists[i] = i==0?true:false;
-
-			ins.HelmetExists[i] = true;
-			ins.HeadExists[i] = true;
-			ins.SwordExists[i] = true;
-			ins.BodyExists[i] = true;
-		}
+		GetItemExists ();
 
 		DontDestroyOnLoad(this);	
 	}

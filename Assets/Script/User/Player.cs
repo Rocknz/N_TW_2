@@ -53,6 +53,6 @@ public class Player : MonoBehaviour {
 			ViewItemLevel[3,UserData.Instance.BodyLevel].transform.localPosition = new Vector3(
 				ViewItemLevel[3,UserData.Instance.BodyLevel].transform.localPosition.x,
 				ViewItemLevel[3,UserData.Instance.BodyLevel].transform.localPosition.y,
-				-0f);
+				0.01f);
 	}
 }

@@ -10,6 +10,7 @@ public class Ending : MonoBehaviour {
 	int TurnGap;
 	int EnemyGap;
 	bool Gotcha = false;
+	int[] Got = new int[2];
 	void Start(){
 		EndingView = GameObject.Find ("EndingView");
 		ending = GameObject.Find ("Ending");
@@ -45,17 +46,57 @@ public class Ending : MonoBehaviour {
 		StartCoroutine("StartGotcha");
 	}
 	public void setCube(){
-		int t;
-		do{
-			t = (int)(Random.value * 4.0f);
-		}while(t == 4);
-		
-		switch(t){
-		case 0: Cube.GetComponent<tk2dSprite>().SetSprite(Tile.datas,"Sword"); break;
-		case 1: Cube.GetComponent<tk2dSprite>().SetSprite(Tile.datas,"Storm"); break;
-		case 2: Cube.GetComponent<tk2dSprite>().SetSprite(Tile.datas,"Coin"); break;
-		case 3: Cube.GetComponent<tk2dSprite>().SetSprite(Tile.datas,"Potion"); break;
+		string item_name = "";
+		for(int i =0; i<4;i++){
+			for(int j=0;j<4;j++){
+				switch(i){
+				case 0: item_name = "Head";break;
+				case 1: item_name = "Body";break;
+				case 2: item_name = "Helmet";break;
+				case 3: item_name = "Sword";break;
+				}
+				
+				switch(j){
+				case 0: item_name += "1";break;
+				case 1: item_name += "2";break;
+				case 2: item_name += "3";break;
+				case 3: item_name += "4";break;
+				}
+				GameObject item = GameObject.Find ("C_"+item_name);
+				item.transform.localPosition = new Vector3(item.transform.localPosition.x,
+				                                                         item.transform.localPosition.y,
+				                                                         1000.0f);
+			}
 		}
+		do{
+			Got[0] = (int)(Random.value * 4.0f);
+		}while(Got[0] == 4);
+
+		do{
+			Got[1] = (int)(Random.value * 4.0f);
+		}while(Got[1] == 4);
+
+		float depth = 0.0f; // Boris
+
+		switch(Got[0]){
+		case 0: item_name = "Head"; break;
+		case 1: item_name = "Body"; depth = 1.0f; break;
+		case 2: item_name = "Helmet"; break;
+		case 3: item_name = "Sword"; break;
+		}
+
+		switch(Got[1]){
+		case 0: item_name += "1";break;
+		case 1: item_name += "2";break;
+		case 2: item_name += "3";break;
+		case 3: item_name += "4";break;
+		}
+
+		GameObject item1 = GameObject.Find ("C_"+item_name);
+		item1.transform.localPosition = new Vector3(item1.transform.localPosition.x,
+		                                           item1.transform.localPosition.y,
+		                                           depth);
+
 	}
 	public IEnumerator StartGotcha(){
 		while(Gotcha){
@@ -70,10 +111,40 @@ public class Ending : MonoBehaviour {
 			RaycastHit hit = new RaycastHit();
 			if(Physics.Raycast(ray, out hit)) {
 				if(hit.transform == GoMenu.transform){
-					Application.LoadLevel(1);
 					Gotcha = false;
+					StartCoroutine("GOTCHA");
 				}
 			}
 		}
+	}
+	public IEnumerator GOTCHA(){
+		iTween.ScaleTo (Cube, iTween.Hash(
+			"x", 400.0f,
+			"y", 400.0f,
+			"z", 0.1f,
+			"easeType", "easeOutQuad",
+			"delay", 0.3f,
+			"time", 1.0f));
+		yield return new WaitForSeconds(1.0f);
+		string item_name = "";
+
+		switch(Got[0]){
+		case 0: item_name = "HeadExists";break;
+		case 1: item_name = "BodyExists";break;
+		case 2: item_name = "HelmetExists";break;
+		case 3: item_name = "SwordExists";break;
+		}
+		
+		switch(Got[1]){
+		case 0: item_name += "0";break;
+		case 1: item_name += "1";break;
+		case 2: item_name += "2";break;
+		case 3: item_name += "3";break;
+		}
+
+		PlayerPrefs.SetInt (item_name,1);
+		UserData.Instance.GetItemExists();
+
+		Application.LoadLevel(1);
 	}
 }

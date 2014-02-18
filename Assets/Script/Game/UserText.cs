@@ -8,6 +8,7 @@ public class UserText : MonoBehaviour {
 	GameObject Mp;
 	GameObject Coin;
 	GameObject DMG;
+	GameObject Turn;
 	void Start(){
 		Atk = GameObject.Find ("Atk Gap");
 		Int = GameObject.Find ("Int Gap");
@@ -17,10 +18,11 @@ public class UserText : MonoBehaviour {
 		Mp = GameObject.Find ("Mp Gap");
 		Coin = GameObject.Find ("Coin Gap");
 		DMG = GameObject.Find ("DMG Gap");
+		Turn = GameObject.Find ("Turn Gaps");
 		setStat();
 	}
 	public void BeAttacked(int Damage){
-		HpDamage.transform.localPosition = new Vector3(700,0,90);
+		HpDamage.transform.localPosition = new Vector3(HpDamage.transform.localPosition.x,0,90);
 		HpDamage.GetComponent<tk2dTextMesh>().text = "-" + Damage.ToString();
 		HpDamage.GetComponent<tk2dTextMesh>().color = new Color(130,130,130);
 		HpDamage.GetComponent<tk2dTextMesh>().Commit ();
@@ -51,25 +53,14 @@ public class UserText : MonoBehaviour {
 		Mp.GetComponent<tk2dTextMesh>().Commit();
 		Coin.GetComponent<tk2dTextMesh>().text = UserData.Instance.Coin.ToString();
 		Coin.GetComponent<tk2dTextMesh>().Commit();
+		Turn.GetComponent<tk2dTextMesh>().text = UserData.Instance.Turn.ToString();
+		Turn.GetComponent<tk2dTextMesh>().Commit();
 	}
 	public void setDMG(int Damage){
 		DMG.GetComponent<tk2dTextMesh>().text = Damage.ToString();
 		DMG.GetComponent<tk2dTextMesh>().Commit();
 	}
 	void settingUserStatus(){
-		// ItemData
-//		UserData.Instance.Atk = ItemData.Instance.Items[0][UserData.Instance.SwordLevel]["hack_damage"]+
-//								ItemData.Instance.Items[7][UserData.Instance.HeadLevel]["hack_damage"];
-//
-//		UserData.Instance.Def = ItemData.Instance.Items[3][UserData.Instance.HelmetLevel]["def"]+
-//								ItemData.Instance.Items[8][UserData.Instance.BodyLevel]["def"];
-//
-//		UserData.Instance.Int = ItemData.Instance.Items[0][UserData.Instance.SwordLevel]["int_damage"]+
-//								ItemData.Instance.Items[7][UserData.Instance.HeadLevel]["int_damage"];
-//
-//		UserData.Instance.Hp = ItemData.Instance.Items[3][UserData.Instance.HelmetLevel]["HP"]+
-//								ItemData.Instance.Items[8][UserData.Instance.BodyLevel]["HP"];
-
 		setStat ();
 	}
 	void Update(){
