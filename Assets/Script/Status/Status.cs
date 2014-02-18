@@ -15,7 +15,7 @@ public class Status : MonoBehaviour {
 	GameObject[,] ViewItem = new GameObject[4,11];
 	GameObject[] ViewPresentItem = new GameObject[4];
 	GameObject[] ViewNextItem = new GameObject[5];
-
+	GameObject back;
 	GameObject ViewMessage;
 
 	/*
@@ -67,6 +67,7 @@ public class Status : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ViewMessage = GameObject.Find ("Message");
+		back = GameObject.Find ("Back");
 		money = UserData.Instance.Coin;
 
 //		Money = GameObject.Find ("Money");
@@ -135,7 +136,8 @@ public class Status : MonoBehaviour {
 			if(Physics.Raycast(ray, out hit)) {
 				Debug.Log (hit.collider.name);
 				closeWindows();
-				if ( hit.collider.name == "select" ) {
+				if ( hit.collider.name == "select"  ||
+				    hit.collider.name == "Back") {
 					UserData.Instance.SaveNowItem();
 					Application.LoadLevel(1);
 				}
