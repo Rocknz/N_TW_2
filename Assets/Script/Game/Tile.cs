@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour {
 	public GameObject myAttack;
 	public GameObject AttackEffect;
 	public GameObject DieEffect;
+	public GameObject HpImage;
 
 	public TileStatus myStatus;
 	public static tk2dSpriteCollectionData datas = (tk2dSpriteCollectionData)Resources.Load("Tiles Data/Tiles",typeof(tk2dSpriteCollectionData));
@@ -31,7 +32,13 @@ public class Tile : MonoBehaviour {
 		myHp.name = "Hp";
 		myHp.transform.parent = myTile.transform;
 		myHp.transform.localPosition = new Vector3(150,100,-1);
-		myHp.GetComponent<UILabel>().color = new Color(255,0,0);
+		myHp.GetComponent<UILabel>().color = new Color(255,255,255);
+
+		HpImage = new GameObject("HpImage");
+		HpImage.transform.parent = myTile.transform;
+		HpImage.transform.localPosition = new Vector3(125,100,-1);
+		HpImage.transform.localScale = new Vector3(0,0,0);
+		HpImage.AddComponent<tk2dSprite>().SetSprite(datas,"Heart");
 
 		myAttack = (GameObject)Instantiate (GameObject.Find ("Hp Label"));
 		myAttack.name = "Atk";
@@ -98,6 +105,7 @@ public class Tile : MonoBehaviour {
 		SetHp ();
 		SetAtk ();
 		myHp.GetComponent<UILabel>().fontSize = 100;
+		HpImage.transform.localScale = new Vector3(25,25,0);
 		myAttack.GetComponent<UILabel>().fontSize = 100;
 	}
 	private void SettingNotEnemy(){
@@ -108,6 +116,7 @@ public class Tile : MonoBehaviour {
 		SetHp ();
 		SetAtk ();
 		myHp.GetComponent<UILabel>().fontSize = 0;
+		HpImage.transform.localScale = new Vector3(0,0,0);
 		myAttack.GetComponent<UILabel>().fontSize = 0;
 	}
 	private void SetImage(MainLogic.TILETYPE myType){
